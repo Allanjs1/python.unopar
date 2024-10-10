@@ -1,0 +1,193 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyMveh6cuKsaKM8j73zQ1ltj",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/Allanjs1/python.unopar/blob/main/Untitled0.ipynb1\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "kmwhjIEfrIol"
+      },
+      "outputs": [],
+      "source": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import sqlite3\n",
+        "\n",
+        "# CREATE (Criação da tabela e inserção de dados de exemplo)\n",
+        "\n",
+        "conn = sqlite3.connect('contatos.db')\n",
+        "\n",
+        "cursor = conn.cursor()\n",
+        "\n",
+        "cursor.execute('''\n",
+        "\n",
+        "    CREATE TABLE IF NOT EXISTS Contatos (\n",
+        "\n",
+        "        id INTEGER PRIMARY KEY AUTOINCREMENT,\n",
+        "\n",
+        "        nome TEXT,\n",
+        "\n",
+        "        email TEXT,\n",
+        "\n",
+        "        telefone TEXT\n",
+        "\n",
+        "    )\n",
+        "\n",
+        "''')\n",
+        "\n",
+        "dados_exemplo = [\n",
+        "\n",
+        "    ('João', 'joao@email.com', '123-456-7890'),\n",
+        "\n",
+        "    ('Maria', 'maria@email.com', '987-654-3210'),\n",
+        "\n",
+        "    ('Carlos', 'carlos@email.com', '555-555-5555')\n",
+        "\n",
+        "]\n",
+        "\n",
+        "cursor.executemany('INSERT INTO Contatos (nome, email, telefone) VALUES (?, ?, ?)', dados_exemplo)\n",
+        "\n",
+        "conn.commit()\n",
+        "\n",
+        "# READ (Leitura e exibição dos contatos)\n",
+        "\n",
+        "cursor.execute('SELECT * FROM Contatos')\n",
+        "\n",
+        "contatos = cursor.fetchall()\n",
+        "\n",
+        "print(\"Contatos:\")\n",
+        "\n",
+        "for contato in contatos:\n",
+        "\n",
+        "    print(contato)\n",
+        "\n",
+        "# UPDATE (Atualização do número de telefone do contato com ID 2)\n",
+        "\n",
+        "novo_telefone = '999-999-9999'\n",
+        "\n",
+        "contato_id = 2\n",
+        "\n",
+        "\n",
+        "\n",
+        "cursor.execute('UPDATE Contatos SET telefone = ? WHERE id = ?', (novo_telefone, contato_id))\n",
+        "\n",
+        "conn.commit()\n",
+        "\n",
+        "# DELETE (Exclusão do contato com ID 1)\n",
+        "\n",
+        "contato_id_para_excluir = 1\n",
+        "\n",
+        "\n",
+        "\n",
+        "cursor.execute('DELETE FROM Contatos WHERE id = ?', (contato_id_para_excluir,))\n",
+        "\n",
+        "conn.commit()\n",
+        "\n",
+        "# Fechando a conexão\n",
+        "\n",
+        "conn.close()"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "jdARBy9crLpA",
+        "outputId": "2f8d6fe3-6675-4440-8eba-f201c5379afe"
+      },
+      "execution_count": 11,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Contatos:\n",
+            "(2, 'Maria', 'maria@email.com', '999-999-9999')\n",
+            "(3, 'Carlos', 'carlos@email.com', '555-555-5555')\n",
+            "(4, 'João', 'joao@email.com', '123-456-7890')\n",
+            "(5, 'Maria', 'maria@email.com', '987-654-3210')\n",
+            "(6, 'Carlos', 'carlos@email.com', '555-555-5555')\n",
+            "(7, 'João', 'joao@email.com', '123-456-7890')\n",
+            "(8, 'Maria', 'maria@email.com', '987-654-3210')\n",
+            "(9, 'Carlos', 'carlos@email.com', '555-555-5555')\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import pandas as pd\n",
+        "\n",
+        "\n",
+        "# Criando uma lista de valores\n",
+        "\n",
+        "data = [10, 20, 30, 40, 50]\n",
+        "\n",
+        "# Criando uma Series a partir da lista\n",
+        "\n",
+        "series1 = pd.Series(data)\n",
+        "\n",
+        "print(data)\n",
+        "\n",
+        "print(series1)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "ZU56RZZers7_",
+        "outputId": "33383b83-a124-4812-aa3f-2c9b6b74622a"
+      },
+      "execution_count": 13,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "[10, 20, 30, 40, 50]\n",
+            "0    10\n",
+            "1    20\n",
+            "2    30\n",
+            "3    40\n",
+            "4    50\n",
+            "dtype: int64\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [],
+      "metadata": {
+        "id": "7myLmhZHrrxL"
+      }
+    }
+  ]
+}
